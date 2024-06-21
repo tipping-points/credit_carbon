@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados del Proyecto</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .chart {
+            margin-top: 20px;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados del Proyecto</h1>
+        
+        <h2>Métricas del Proyecto</h2>
+        <table id="metrics-table" class="display">
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos se llenarán aquí con JavaScript -->
+            </tbody>
+        </table>
+
+        <h2>Condiciones Climáticas y Especies Recomendadas</h2>
+        <table id="climatic-conditions-table" class="display">
+            <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Temperatura (°C)</th>
+                    <th>Precipitación (mm)</th>
+                    <th>Especie Recomendada</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos se llenarán aquí con JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="chart" id="roi-chart"></div>
+        <div class="chart" id="carbon-capture-chart"></div>
+        <div class="chart" id="carbon-income-chart"></div>
+        <div class="chart" id="operational-costs-chart"></div>
+        <div class="chart" id="profit-margin-chart"></div>
+        <div class="chart" id="future-income-projection-chart"></div>
+
+        <h2>Opciones de Financiamiento</h2>
+        <table id="financing-options-table" class="display">
+            <thead>
+                <tr>
+                    <th>Fuente</th>
+                    <th>Descripción</th>
+                    <th>Monto (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos se llenarán aquí con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Datos de las métricas del proyecto
+        const metricsData = [
+            ["Initial Costs", 100000],
+            ["Carbon Credits Income", 210000],
+            ["Water Credits Income", 150000],
+            ["Direct Jobs Created", 20],
+            ["Indirect Jobs Created", 10],
+            ["Farmers Trained", 50],
+            ["Well-being Improvement Index", 3.5],
+            ["Total Carbon Capture (tCO2)", 2100],
+            ["Total Water Retention (liters)", 3000000],
+            ["Biodiversity Index", 5.0],
+            ["Soil Improvement Index", 7.5]
+        ];
+
+        // Datos de condiciones climáticas y especies recomendadas
+        const climaticConditionsData = [
+            [1, 15.2, 700, "Almendro"],
+            [2, 16.3, 800, "Cereza"],
+            // Añadir más datos según sea necesario
+        ];
+
+        // Datos de opciones de financiamiento
+        const financingOptionsData = [
+            ["Créditos de Carbono", "Ingresos generados por la venta de créditos de carbono.", 210000],
+            ["Créditos de Agua", "Ingresos generados por la venta de créditos de agua.", 150000],
+            ["Subsidios Gubernamentales", "Subsidios proporcionados por el gobierno para apoyar proyectos sostenibles.", 5000],
+            ["Préstamos Bancarios", "Préstamos obtenidos de instituciones financieras para cubrir costos iniciales.", 20000]
+        ];
+
+        // Función para llenar las tablas
+        function fillTable(tableId, data) {
+            const tableBody = document.querySelector(`#${tableId} tbody`);
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Llenar las tablas con los datos
+        fillTable('metrics-table', metricsData);
+        fillTable('climatic-conditions-table', climaticConditionsData);
+        fillTable('financing-options-table', financingOptionsData);
+
+        // Inicializar DataTables
+        $(document).ready(function() {
+            $('#metrics-table').DataTable();
+            $('#climatic-conditions-table').DataTable();
+            $('#financing-options-table').DataTable();
+        });
+
+        // Función para crear gráficos con Plotly
+        function createChart(chartId, data) {
+            Plotly.newPlot(chartId, data);
+        }
+
+        // Datos para los gráficos (ejemplos)
+        const roiData = [{
+            x: [1, 2, 3, 4, 5],
+            y: [5, 10, 15, 20, 25],
+            type: 'scatter',
+            name: 'ROI Acumulado'
+        }, {
+            x: [1, 2, 3, 4, 5],
+            y: [6, 11, 16, 21, 26],
+            type: 'scatter',
+            name: 'Predicción'
+        }];
+
+        const carbonCaptureData = [{
+            x: [1, 2, 3, 4, 5],
+            y: [10, 20, 30, 40, 50],
+            type: 'scatter',
+            name: 'Captura de Carbono'
+        }, {
+            x: [1, 2, 3, 4, 5],
+            y: [12, 22, 32, 42, 52],
+            type: 'scatter',
+            name: 'Predicción'
+        }];
+
+        // Crear gráficos
+        createChart('roi-chart', roiData);
+        createChart('carbon-capture-chart', carbonCaptureData);
+        // Añadir más gráficos según sea necesario
+
+    </script>
+</body>
+</html>
